@@ -103,6 +103,13 @@ function obtenerPrediccion(data) {
             pronosticoPorDia[dia].min = Math.min(pronosticoPorDia[dia].min, item.main.temp);
             pronosticoPorDia[dia].max = Math.max(pronosticoPorDia[dia].max, item.main.temp);
         }
+
+        if (item.rain && item.rain['3h']) {
+            pronosticoPorDia[dia].precipitacion += item.rain['3h'];
+        }
+        if (item.snow && item.snow['3h']) {
+            pronosticoPorDia[dia].precipitacion += item.snow['3h'];
+        }
     });
 
     mostrarPrediccion(pronosticoPorDia);
@@ -111,7 +118,7 @@ function mostrarPrediccion(pronostico) {
     let html = "<h3>Pronóstico para los próximos días:</h3><div class='forecast-container'>";
 
     Object.keys(pronostico).forEach(dia => {
-        const { min, max, icono, descripcion } = pronostico[dia];
+        const { min, max, icono, descripcion, precipitacion } = pronostico[dia];
         const iconUrl = `http://openweathermap.org/img/w/${icono}.png`;
 
         html += `
@@ -120,6 +127,7 @@ function mostrarPrediccion(pronostico) {
                 <img src="${iconUrl}" alt="${descripcion}">
                 <p>${descripcion.charAt(0).toUpperCase() + descripcion.slice(1)}</p>
                 <p>🌡️ ${min.toFixed(1)}°C - ${max.toFixed(1)}°C</p>
+                <p>️ ${precipitacion.toFixed(1)} mm</p> </div>
             </div>
         `;
     });
