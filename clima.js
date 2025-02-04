@@ -63,7 +63,7 @@ function mostrarClimaActual(data) {
     const humedad = data.main.humidity;
     const condiciones = data.weather[0].description;
     const icono = data.weather[0].icon;
-    const iconUrl = `http://openweathermap.org/img/w/${icono}.png`;
+    const iconUrl = `https://img.freepik.com/vector-gratis/ilustracion-fiesta-piscina-perros-dibujada-mano_23-2150409922.jpg?semt=ais_hybrid/${icono}.png`;
 
     const sunriseTime = new Date(data.sys.sunrise * 1000).toLocaleTimeString("es-ES");
     const sunsetTime = new Date(data.sys.sunset * 1000).toLocaleTimeString("es-ES");
@@ -117,7 +117,7 @@ function mostrarPrediccion(pronostico) {
         html += `
             <div class="forecast-card">
                 <h4>${dia}</h4>
-                <img  alt="${descripcion}">
+                <img src="${iconUrl}" alt="${descripcion}">
                 <p>${descripcion.charAt(0).toUpperCase() + descripcion.slice(1)}</p>
                 <p>🌡️ ${min.toFixed(1)}°C - ${max.toFixed(1)}°C</p>
             </div>
