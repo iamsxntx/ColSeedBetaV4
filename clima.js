@@ -1,6 +1,16 @@
 const apiEndpoint = 'https://api.openweathermap.org/data/2.5/';
 const apiKey = 'a6c70ff6ee453d0222a396af6c64552f';
 
+const iconosPersonalizados = {
+    "01d": "sol.png", // Icono personalizado para día soleado
+    "01n": "luna.png", // Icono personalizado para noche clara
+    "02d": "nubes_sol.png", // Icono personalizado para día parcialmente nublado
+    "02n": "nubes_luna.png", // Icono personalizado para noche parcialmente nublada
+    "03d": "nublado.png", // Icono personalizado para día nublado
+    "03n": "nublado.png", // Icono personalizado para noche nublada
+    // ... agrega más iconos para los diferentes códigos de OpenWeatherMap
+};
+
 const ubicacionInput = document.getElementById('ubicacion');
 const paisSelect = document.getElementById('pais');
 const buscarClimaButton = document.getElementById('buscar-clima');
@@ -63,8 +73,10 @@ function mostrarClimaActual(data) {
     const humedad = data.main.humidity;
     const condiciones = data.weather[0].description;
     const icono = data.weather[0].icon;
-    const iconUrl = `http://openweathermap.org/img/w/${icono}.png`;
-
+    const nombreIcono = iconosPersonalizados[icono] || icono + ".png"; // Busca el icono personalizado o usa el de OpenWeatherMap
+    const iconUrl = `/iconos/${nombreIcono}`; // Ruta a tu carpeta de iconos
+    
+    document.getElementById("icono-clima").src = iconUrl;
 
     const sunriseTime = new Date(data.sys.sunrise * 1000).toLocaleTimeString("es-ES");
     const sunsetTime = new Date(data.sys.sunset * 1000).toLocaleTimeString("es-ES");
