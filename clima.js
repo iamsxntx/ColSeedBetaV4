@@ -1,5 +1,5 @@
 const apiEndpoint = 'https://api.openweathermap.org/data/2.5/';
-const apiKey = 'a6c70ff6ee453d0222a396af6c64552f'; // Reemplaza con tu API Key
+const apiKey = 'a6c70ff6ee453d0222a396af6c64552f';
 
 const ubicacionInput = document.getElementById('ubicacion');
 const paisSelect = document.getElementById('pais');
@@ -11,36 +11,47 @@ buscarClimaButton.addEventListener('click', buscarClima);
 function buscarClima() {
     const ubicacion = ubicacionInput.value.trim();
     if (!ubicacion) {
-        mostrarError("Por favor, ingresa una ciudad válida.");
+        climaActualDiv.innerHTML = '<p class="error-msg">Por favor, ingresa una ciudad válida.</p>';
         return;
     }
 
-    mostrarCargando();
-    document.getElementById("pronostico").innerHTML = "";
+    climaActualDiv.innerHTML = '<p class="loading">Cargando...</p>';
+    document.getElementById("pronostico").innerHTML = ""; // Limpia el pronóstico anterior
 
     const pais = paisSelect.value;
     const urlClima = `${apiEndpoint}weather?q=${ubicacion},${pais}&units=metric&appid=${apiKey}&lang=es`;
     const urlForecast = `${apiEndpoint}forecast?q=${ubicacion},${pais}&units=metric&appid=${apiKey}&lang=es`;
 
-    Promise.all([fetch(urlClima), fetch(urlForecast)]) // Usar Promise.all para ambas llamadas
-        .then(responses => Promise.all(responses.map(res => res.json())))
-        .then(([climaData, forecastData]) => {
-            mostrarClimaActual(climaData);
-            obtenerPrediccion(forecastData);
-            actualizarReloj(climaData.timezone);
+    fetch(urlClima)
+        .then(response => {
+            if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
+            return response.json();
+        })
+        .then(data => {
+            mostrarClimaActual(data);
+            actualizarReloj(data.timezone); // 🔥 MOVIDO AQUÍ
         })
         .catch(error => {
-            mostrarError("No se pudo obtener la información del clima.");
+            climaActualDiv.innerHTML = '<p class="error-msg">No se pudo obtener la información del clima.</p>';
             console.error(error);
         });
+
+    fetch(urlForecast)
+        .then(response => {
+            if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
+            return response.json();
+        })
+        .then(data => obtenerPrediccion(data))
+        .catch(error => console.error("Error obteniendo el pronóstico:", error));
 }
 
 function mostrarClimaActual(data) {
     if (data.cod !== 200) {
-        mostrarError(`Error: ${data.message}`);
+        climaActualDiv.innerHTML = `<p class="error-msg">Error: ${data.message}</p>`;
         return;
     }
 
+    // 🔥 Ahora sí podemos actualizar el nombre de la ciudad aquí
     document.getElementById("ciudad").innerText = `${data.name}, ${data.sys.country}`;
 
     const timestamp = data.dt * 1000;
@@ -52,19 +63,8 @@ function mostrarClimaActual(data) {
     const humedad = data.main.humidity;
     const condiciones = data.weather[0].description;
     const icono = data.weather[0].icon;
+    const iconUrl = `http://openweathermap.org/img/w/${icono}.png`;
 
-    // Mapa de iconos personalizados (reemplaza con tus nombres de archivo)
-    const iconosPersonalizados = {
-        "01d": "sol.png",
-        "01n": "luna.png",
-        "02d": "nubes_soleadas.png",
-        "02n": "nubes_luna.png",
-        "03d": "nubes.png",
-        "03n": "nubes.png",
-    };
-
-    const nombreIcono = iconosPersonalizados[icono] || `${icono}.png`; // fallback al icono de OpenWeatherMap si no hay coincidencia
-    const iconUrl = `/iconos/${nombreIcono}`; // Ajusta la ruta a tu carpeta de iconos
 
     const sunriseTime = new Date(data.sys.sunrise * 1000).toLocaleTimeString("es-ES");
     const sunsetTime = new Date(data.sys.sunset * 1000).toLocaleTimeString("es-ES");
@@ -73,21 +73,21 @@ function mostrarClimaActual(data) {
     climaActualDiv.innerHTML = `
         <div class="weather-card">
             <h3>${data.name}, ${data.sys.country}</h3>
-            <p> Día: <strong>${diaSemana}</strong></p>
+            <p>📅 Día: <strong>${diaSemana}</strong></p>
             <img src="${iconUrl}" alt="${condiciones}">
             <p class="temp">${temperatura}°C</p>
-            <p> Humedad: ${humedad}%</p>
-            <p> Viento: <strong>${viento} m/s</strong></p>
-            <p> Amanecer: <strong>${sunriseTime}</strong></p>
-            <p> Atardecer: <strong>${sunsetTime}</strong></p>
+            <p>🐳 Humedad: ${humedad}%</p>
+            <p>💨 Viento: <strong>${viento} m/s</strong></p>
+            <p>🌅 Amanecer: <strong>${sunriseTime}</strong></p>
+            <p>🌄 Atardecer: <strong>${sunsetTime}</strong></p>
             <p class="desc">${condiciones.charAt(0).toUpperCase() + condiciones.slice(1)}</p>
-            <p id="reloj"> Cargando hora...</p>
+            <p id="reloj">🕒 Cargando hora...</p> <!-- 🔥 Aquí aparecerá la hora -->
         </div>
     `;
 }
 
 function obtenerPrediccion(data) {
-        let pronosticoPorDia = {}; // Objeto para almacenar datos por día
+    let pronosticoPorDia = {}; // Objeto para almacenar datos por día
 
     data.list.forEach(item => {
         const fecha = new Date(item.dt * 1000);
@@ -105,10 +105,11 @@ function obtenerPrediccion(data) {
             pronosticoPorDia[dia].max = Math.max(pronosticoPorDia[dia].max, item.main.temp);
         }
     });
-}
 
+    mostrarPrediccion(pronosticoPorDia);
+}
 function mostrarPrediccion(pronostico) {
-   let html = "<h3>Pronóstico para los próximos días:</h3><div class='forecast-container'>";
+    let html = "<h3>Pronóstico para los próximos días:</h3><div class='forecast-container'>";
 
     Object.keys(pronostico).forEach(dia => {
         const { min, max, icono, descripcion } = pronostico[dia];
@@ -129,7 +130,7 @@ function mostrarPrediccion(pronostico) {
 }
 
 function obtenerUbicacion() {
-       if (navigator.geolocation) {
+    if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(pos => {
             const lat = pos.coords.latitude;
             const lon = pos.coords.longitude;
@@ -144,9 +145,8 @@ function obtenerUbicacion() {
         alert("Tu navegador no admite geolocalización.");
     }
 }
-
 function actualizarReloj(timezone) {
-   function mostrarHora() {
+    function mostrarHora() {
         const ahora = new Date();
         const utc = ahora.getTime() + ahora.getTimezoneOffset() * 60000;
         const horaLocal = new Date(utc + (timezone * 1000));
@@ -156,10 +156,3 @@ function actualizarReloj(timezone) {
     setInterval(mostrarHora, 1000); // Actualiza cada segundo
 }
 
-function mostrarCargando() {
-    climaActualDiv.innerHTML = '<p class="loading">Cargando...</p>';
-}
-
-function mostrarError(mensaje) {
-    climaActualDiv.innerHTML = `<p class="error-msg">${mensaje}</p>`;
-}
