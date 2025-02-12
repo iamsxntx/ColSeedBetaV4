@@ -142,47 +142,7 @@
         <div id="pronostico"></div>
 
 </div>
-
 <script src="clima.js"></script>
-        <!-- Análisis de condiciones del suelo -->
-        <section id="analizar" class="mb-5">
-            <h2>Analizar Condiciones del Suelo</h2>
-            <div class="form-group">
-                <label for="cultivo">Selecciona un Cultivo:</label>
-                <select id="cultivo" class="form-control">
-                    <option value="mora">Mora</option>
-                    <option value="lulo">Lulo</option>
-                    <option value="frijol">Frijol</option>
-                    <option value="cafe">Café</option>
-                    <option value="maiz">Maíz</option>
-                    <option value="arveja">Arveja</option>
-                    <option value="yuca">Yuca</option>
-                    <option value="auyama">Auyama</option>
-                    <option value="papa">Papa</option>
-                    <option value="cebolla">Cebolla larga</option>
-                    <option value="tomate">Tomate</option>
-                    <option value="naranjas">Naranjas</option>
-                </select>
-            </div>
-            <button class="btn btn-success" onclick="analizarCultivo()">Analizar</button>
-
-            <div id="resultados" class="mt-4"></div>
-            <div id="graficoContainer" class="mt-4">
-                <canvas id="graficoCondiciones"></canvas>
-            </div>
-        </section>
-
-        <section id="monitoreo" class="mb-5">
-            <h2>Monitoreo de Cultivo</h2>
-            <button class="btn btn-success" onclick="monitorearCultivo()">Monitorear</button>
-            <div id="monitoreoResultados" class="mt-4"></div>
-        </section>
-    </div>
-
-    <footer class="bg-success text-white text-center py-3">
-        <p>&copy; 2025 Colseed by David Leon - Julian Marin</p>
-    </footer>
-
     <script src="script.js"></script>
 </body>
 
