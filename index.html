@@ -18,14 +18,13 @@
             <a class="navbar-brand" href="#">Inicio</a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" href="#analizar">Analizar Suelo</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#monitoreo">Monitoreo de Cultivo</a></li>
+                    <li class="nav-item"><a class="nav-link" href="analizar.html">Analizar Suelo</a></li>
+                    <li class="nav-item"><a class="nav-link" href="monitoreo.html">Monitoreo de Cultivo</a></li>
                 </ul>
             </div>
         </nav>
     </header>
     <div class="container mt-4">
-        <!-- Consejos para los campesinos -->
         <section id="consejos" class="mb-5">
             <h2>Consejos para un cultivo eficiente exitoso</h2>
             <p>Estos consejos prácticos pueden ayudarte a mejorar tus cultivos y cuidar mejor de tus plantas:</p>
@@ -76,16 +75,16 @@
                     <h3>Consejos y Recomendaciones</h3>
                     <ul>
                         <li><strong>Monitoreo del Suelo:</strong> Utiliza sensores para medir variables como humedad,
-                            temperatura y nutrientes, permitiendo decisiones informadas sobre riegos y fertilización.
+                                temperatura y nutrientes, permitiendo decisiones informadas sobre riegos y fertilización.
                             (<a
                                 href="https://www.fandosagricultura.com/fandos-agricultura/agricultura-de-precision-herramientas-y-consejos-para-implementarla/">Fuente</a>)
                         </li>
                         <li><strong>Mapeo de Zonas Variadas:</strong> Identifica áreas con diferentes características
-                            para aplicar tratamientos específicos, optimizando recursos y mejorando rendimientos. (<a
+                                para aplicar tratamientos específicos, optimizando recursos y mejorando rendimientos. (<a
                                 href="https://mappa.ag/es/blog/guia-agricultura-de-precision/">Fuente</a>)
                         </li>
                         <li><strong>Automatización de Maquinaria:</strong> Implementa equipos que operen de manera
-                            autónoma, reduciendo costos laborales y aumentando la precisión en las labores agrícolas.
+                                autónoma, reduciendo costos laborales y aumentando la precisión en las labores agrícolas.
                             (<a
                                 href="https://agrotechcampus.com/blog/agricultura-de-precision-en-3-pasos?">Fuente</a>)
                         </li>
@@ -95,15 +94,15 @@
                     <h3>Beneficios Clave</h3>
                     <ul>
                         <li><strong>Reducción de Insumos:</strong> Disminuye el uso de fertilizantes y pesticidas al
-                            aplicarlos solo donde es necesario. (<a
+                                aplicarlos solo donde es necesario. (<a
                                 href="https://enterprise.godron.mx/agricultura-de-precision/">Fuente</a>)
                         </li>
                         <li><strong>Mejora en la Salud del Suelo:</strong> Promueve prácticas que conservan y enriquecen
-                            la calidad del suelo. (<a
+                                la calidad del suelo. (<a
                                 href="https://veggiesfrommexico.com/es/otras-noticias/9-consejos-para-mejorar-la-salud-del-suelo-en-su-agricola/">Fuente</a>)
                         </li>
                         <li><strong>Aumento de la Rentabilidad:</strong> Optimiza los recursos, incrementando la
-                            eficiencia y los beneficios económicos. (<a
+                                eficiencia y los beneficios económicos. (<a
                                 href="https://www.agropinos.com/blog/tips-y-consejos-practicos-para-mejorar-los-cultivos">Fuente</a>)
                         </li>
                     </ul>
@@ -125,24 +124,29 @@
                 </div>
             </div>
         </section>
-    <div id="clima-widget">
-    <h2>Consulta el Clima</h2>
-    <input id="ubicacion" type="text" placeholder="Ingrese una ciudad">
-    <select id="pais">
-        <option value="CO">Colombia</option>
-        <option value="PE">Perú</option>
-        <option value="EC">Ecuador</option>
-        <option value="MX">México</option>
-        <option value="ES">España</option>
-    </select>
-    <button id="buscar-clima">Buscar Clima</button>
-    <div id="clima-actual"></div>
+        <div id="clima-widget">
+            <h2>Consulta el Clima</h2>
+            <input id="ubicacion" type="text" placeholder="Ingrese una ciudad">
+            <select id="pais">
+                <option value="CO">Colombia</option>
+                <option value="PE">Perú</option>
+                <option value="EC">Ecuador</option>
+                <option value="MX">México</option>
+                <option value="ES">España</option>
+            </select>
+            <button id="buscar-clima">Buscar Clima</button>
+            <div id="clima-actual"></div>
             <h2 id="ciudad"></h2>
-    <p id="reloj"></p> <!-- Aquí va el reloj -->
-        <div id="pronostico"></div>
+            <p id="reloj"></p>
+            <div id="pronostico"></div>
+        </div>
+    </div>
 
-</div>
-<script src="clima.js"></script>
+    <footer class="bg-success text-white text-center py-3">
+        <p>&copy; 2025 Colseed by David Leon - Julian Marin</p>
+    </footer>
+
+    <script src="clima.js"></script>
     <script src="script.js"></script>
 </body>
 
