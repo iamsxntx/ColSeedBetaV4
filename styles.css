@@ -1,142 +1,99 @@
 /* Estilos generales */
 body {
-    font-family: "Arial", sans-serif;
-    background-color: #e9f8e9;
-    color: #333;
-    text-align: center;
+  font-family: "Arial", sans-serif;
+  background-color: #e9f8e9;
+  color: #333;
+  text-align: center;
 }
 
 /* Widget del Clima */
 #clima-widget {
-    background-color: #ffffff;
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 90%; /* Ajusta el ancho al 90% del contenedor */
-    margin: 20px auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+  background-color: #ffffff;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 1000px;
+  width: 280%; /* Ajusta el ancho */
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .weather-card {
-    width: 100%;
-    background: linear-gradient(135deg, #4caf50, #81c784);
-    color: white;
-    border-radius: 10px;
-    padding: 15px;
-    text-align: center;
-    margin-bottom: 10px; /* Espacio entre la tarjeta principal y el pronóstico */
+  width: 100%;
+  max-width: 1500px;
+  background: linear-gradient(135deg, #4caf50, #81c784);
+  color: white;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
 }
 
+
 .weather-card:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 .weather-card img {
-    width: 80px;
-    height: 80px;
-    margin: 10px 0;
+  width: 80px;
+  height: 80px;
+  margin: 10px 0;
 }
 
 .temp {
-    font-size: 2em;
-    font-weight: bold;
+  font-size: 2em;
+  font-weight: bold;
 }
 
 .desc {
-    font-style: italic;
+  font-style: italic;
 }
 
 .error-msg {
-    color: red;
-    font-weight: bold;
+  color: red;
+  font-weight: bold;
 }
 
 .loading {
-    font-weight: bold;
-    color: #4caf50;
+  font-weight: bold;
+  color: #4caf50;
 }
 
 .forecast-container {
-    display: flex;
-    justify-content: center; /* Centrar horizontalmente */
-    flex-wrap: wrap;
-    gap: 10px;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .forecast-card {
-    background: #ffffff;
-    border-radius: 10px;
-    padding: 10px;
-    text-align: center;
-    width: 120px;
-    max-width: 150px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    margin: 5px; /* Espacio entre tarjetas de pronóstico */
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  width: 120px;
+  max-width: 150px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .forecast-card img {
-    width: 100px;
-    height: 100px;
+  width: 100px;
+  height: 100px;
 }
 
 #pronostico {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center; /* Centrar horizontalmente */
-    gap: 15px;
-}
-
-/* Estilos para la barra de navegación */
-.navbar-toggler {
-    margin-right: 20px; /* Ajusta el margen derecho del botón */
-}
-
-.navbar-collapse {
-    justify-content: flex-end; /* Alinea los elementos a la derecha */
-}
-
-.navbar-nav {
-    margin-right: 20px; /* Ajusta el margen derecho de la lista */
-}
-
-.navbar-nav .nav-link {
-    margin: 0 10px; /* Espacio entre los enlaces */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 15px;
 }
 
 /* Estilos Responsivos */
-@media (max-width: 768px) { /* Para pantallas medianas y pequeñas */
-    #clima-widget {
-        width: 95%; /* Ocupa casi todo el ancho en pantallas pequeñas */
-        padding: 15px;
-    }
-    .forecast-container {
-        justify-content: flex-start; /* Alinea las tarjetas a la izquierda en pantallas pequeñas */
-    }
-    .navbar-toggler {
-        display: block; /* Asegura que el botón de menú se muestre */
-    }
-    .navbar-collapse {
-        justify-content: center; /* Centra los elementos del menú en pantallas pequeñas */
-    }
-    .navbar-nav {
-        flex-direction: column; /* Muestra los elementos del menú verticalmente */
-        margin: 0;
-    }
-    .navbar-nav .nav-link {
-        margin: 5px 0; /* Espacio vertical entre los enlaces */
-        text-align: center; /* Centrar el texto en los links del menu */
-    }
-
-    /* Ajustar el ancho de las imágenes de consejos en pantallas pequeñas */
-    #consejos .row .col-md-4 img {
-        width: 100%; /* Ocupar todo el ancho disponible */
-        height: auto; /* Mantener la proporción aspectual */
-    }
-    #consejos .row .col-md-4 {
-        margin-bottom: 20px; /* Espacio entre las columnas */
-    }
-
+@media (max-width: 480px) {
+  #clima-widget {
+    width: 90%;
+    padding: 15px;
+  }
 }
