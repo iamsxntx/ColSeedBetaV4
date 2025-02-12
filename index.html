@@ -16,26 +16,31 @@
         <h1>COLSEED</h1>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="#">Inicio</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="analizar.html">Analizar Suelo</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="monitoreo.html">Monitoreo de Cultivo</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" href="analizar.html">Analizar Suelo</a></li>
+                    <li class="nav-item"><a class="nav-link" href="monitoreo.html">Monitoreo de Cultivo</a></li>
                 </ul>
             </div>
         </nav>
     </header>
     <div class="container mt-4">
+        <div id="clima-widget">
+            <h2>Consulta el Clima</h2>
+            <input id="ubicacion" type="text" placeholder="Ingrese una ciudad">
+            <select id="pais">
+                <option value="CO">Colombia</option>
+                <option value="PE">Perú</option>
+                <option value="EC">Ecuador</option>
+                <option value="MX">México</option>
+                <option value="ES">España</option>
+            </select>
+            <button id="buscar-clima">Buscar Clima</button>
+            <div id="clima-actual"></div>
+            <h2 id="ciudad"></h2>
+            <p id="reloj"></p>
+            <div id="pronostico"></div>
+        </div>
         <section id="consejos" class="mb-5">
             <h2>Consejos para un cultivo eficiente exitoso</h2>
             <p>Estos consejos prácticos pueden ayudarte a mejorar tus cultivos y cuidar mejor de tus plantas:</p>
@@ -135,22 +140,6 @@
                 </div>
             </div>
         </section>
-        <div id="clima-widget">
-            <h2>Consulta el Clima</h2>
-            <input id="ubicacion" type="text" placeholder="Ingrese una ciudad">
-            <select id="pais">
-                <option value="CO">Colombia</option>
-                <option value="PE">Perú</option>
-                <option value="EC">Ecuador</option>
-                <option value="MX">México</option>
-                <option value="ES">España</option>
-            </select>
-            <button id="buscar-clima">Buscar Clima</button>
-            <div id="clima-actual"></div>
-            <h2 id="ciudad"></h2>
-            <p id="reloj"></p>
-            <div id="pronostico"></div>
-        </div>
     </div>
 
     <footer class="bg-success text-white text-center py-3">
@@ -159,8 +148,6 @@
 
     <script src="clima.js"></script>
     <script src="script.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    </body>
+</body>
 
 </html>
