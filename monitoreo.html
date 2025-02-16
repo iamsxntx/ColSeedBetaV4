@@ -7,10 +7,24 @@
     <title>ColSeed - Monitoreo de Cultivo</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            display: flex; /* Convierte el body en un contenedor Flexbox */
+            flex-direction: column; /* Alinea los elementos en columna */
+            min-height: 100vh; /* Asegura que el body tenga al menos la altura de la pantalla */
+        }
+
+        .container {
+            flex: 1; /* El contenido principal se expande para llenar el espacio disponible */
+        }
+
+        footer {
+            /* Estilos para el footer (opcional) */
+        }
+    </style>
 </head>
 
 <body>
-
     <header class="bg-success text-white text-center py-4">
         <h1>COLSEED</h1>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -23,36 +37,13 @@
             </div>
         </nav>
     </header>
-
     <div class="container mt-4">
         <section id="monitoreo" class="mb-5">
             <h2>Monitoreo de Cultivo</h2>
-
-            <div class="form-group">
-                <label for="cultivo">Selecciona un Cultivo:</label>
-                <select id="cultivo" class="form-control">
-                    <option value="mora">Mora</option>
-                    <option value="lulo">Lulo</option>
-                    <option value="frijol">Frijol</option>
-                    <option value="cafe">Café</option>
-                    <option value="maiz">Maíz</option>
-                    <option value="arveja">Arveja</option>
-                    <option value="yuca">Yuca</option>
-                    <option value="auyama">Auyama</option>
-                    <option value="papa">Papa</option>
-                    <option value="cebolla">Cebolla larga</option>
-                    <option value="tomate">Tomate</option>
-                    <option value="naranjas">Naranjas</option>
-                </select>
-            </div>
-
             <button class="btn btn-success" onclick="monitorearCultivo()">Monitorear</button>
-
-            <div id="monitoreoResultados" class="mt-4">
-                </div>
+            <div id="monitoreoResultados" class="mt-4"></div>
         </section>
     </div>
-
     <footer class="bg-success text-white text-center py-3">
         <p>&copy; 2025 Colseed by David Leon - Julian Marin</p>
     </footer>
