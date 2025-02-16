@@ -57,7 +57,7 @@ function mostrarGrafico(requisitos) {
     chart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['Luminosidad (h)', 'Precipitación (mm)', 'Humedad (%)', 'Temperatura (°C)'],
+            labels: ['Luminosidad (h)', 'Humedad (%)', 'Temperatura (°C)'],
             datasets: [
                 {
                     label: 'Requisitos óptimos',
