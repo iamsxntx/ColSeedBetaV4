@@ -25,7 +25,6 @@ function analizarCultivo() {
         <h3>Requisitos para cultivar ${cultivo.charAt(0).toUpperCase() + cultivo.slice(1)}:</h3>
         <ul>
             <li><strong>Luminosidad:</strong> ${requisitos.luminosidad}</li>
-            <li><strong>Precipitación:</strong> ${requisitos.precipitacion}</li>
             <li><strong>Humedad:</strong> ${requisitos.humedad}</li>
             <li><strong>Temperatura:</strong> ${requisitos.temperatura}</li>
         </ul>
