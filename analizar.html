@@ -8,6 +8,21 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            flex: 1;
+        }
+
+        footer {
+            /* Estilos para el footer (opcional) */
+        }
+    </style>
 </head>
 
 <body>
@@ -29,18 +44,18 @@
             <div class="form-group">
                 <label for="cultivo">Selecciona un Cultivo:</label>
                 <select id="cultivo" class="form-control">
-                    <option value="mora">Mora</option>
-                    <option value="lulo">Lulo</option>
-                    <option value="frijol">Frijol</option>
-                    <option value="cafe">Café</option>
-                    <option value="maiz">Maíz</option>
-                    <option value="arveja">Arveja</option>
-                    <option value="yuca">Yuca</option>
-                    <option value="auyama">Auyama</option>
-                    <option value="papa">Papa</option>
-                    <option value="cebolla">Cebolla larga</option>
-                    <option value="tomate">Tomate</option>
-                    <option value="naranjas">Naranjas</option>
+                    <option value="Mora">Mora</option>
+                    <option value="Lulo">Lulo</option>
+                    <option value="Naranja">Naranjas</option>
+                    <option value="Arveja">Arveja</option>
+                    <option value="Auyama">Auyama</option>
+                    <option value="Cebolla">Cebolla larga</option>
+                    <option value="Tomate">Tomate</option>
+                    <option value="Frijol">Frijol</option>
+                    <option value="Maiz">Maíz</option>
+                    <option value="Yuca">Yuca</option>
+                    <option value="Papa">Papa</option>
+                    <option value="Cafe">Café</option>
                 </select>
             </div>
             <button class="btn btn-success" onclick="analizarCultivo()">Analizar</button>
