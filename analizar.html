@@ -12,4 +12,53 @@
 
 <body>
 
-    <header class="bg-success text-white text-center py-4
+    <header class="bg-success text-white text-center py-4">
+        <h1>COLSEED</h1>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="index.html">Inicio</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="analizar.html">Analizar Suelo</a></li>
+                    <li class="nav-item"><a class="nav-link" href="monitoreo.html">Monitoreo de Cultivo</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container mt-4">
+        <section id="analizar" class="mb-5">
+            <h2>Analizar Condiciones del Suelo</h2>
+            <div class="form-group">
+                <label for="cultivo">Selecciona un Cultivo:</label>
+                <select id="cultivo" class="form-control">
+                    <option value="mora">Mora</option>
+                    <option value="lulo">Lulo</option>
+                    <option value="frijol">Frijol</option>
+                    <option value="cafe">Café</option>
+                    <option value="maiz">Maíz</option>
+                    <option value="arveja">Arveja</option>
+                    <option value="yuca">Yuca</option>
+                    <option value="auyama">Auyama</option>
+                    <option value="papa">Papa</option>
+                    <option value="cebolla">Cebolla larga</option>
+                    <option value="tomate">Tomate</option>
+                    <option value="naranjas">Naranjas</option>
+                </select>
+            </div>
+            <button class="btn btn-success" onclick="analizarCultivo()">Analizar</button>
+
+            <div id="resultados" class="mt-4"></div>
+            <div id="graficoContainer" class="mt-4">
+                <canvas id="graficoCondiciones"></canvas>
+            </div>
+        </section>
+    </div>
+
+    <footer class="bg-success text-white text-center py-3">
+        <p>&copy; 2025 Colseed by David Leon - Julian Marin</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
