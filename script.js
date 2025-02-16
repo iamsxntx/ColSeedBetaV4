@@ -15,12 +15,26 @@ const requisitosCultivos = {
 
 let chart;
 
+const ws = new WebSocket("ws://192.168.0.33:81/");
+
+ws.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+    actualizarGrafico(data);
+    evaluarCondiciones(data);
+};
+
 function analizarCultivo() {
     const cultivo = document.getElementById("cultivo").value;
-    const resultadosDiv = document.getElementById("resultados");
-
-    const requisitos = requisitosCultivos[cultivo];
-
+    const resultadosDiv = document.getElementById("resultados"); //en el chat no estava
+      const requisitos = requisitosCultivos[cultivo];
+        document.getElementById("resultados").innerHTML = `
+        <h3>Requisitos para ${cultivo}:</h3>
+        <ul>
+            <li>Luminosidad: ${requisitos.luminosidad} horas</li>
+            <li>Humedad: ${requisitos.humedad}%</li>
+            <li>Temperatura: ${requisitos.temperatura}°C</li>
+        </ul>`;
+    
     resultadosDiv.innerHTML = `
         <h3>Requisitos para cultivar ${cultivo.charAt(0).toUpperCase() + cultivo.slice(1)}:</h3>
         <ul>
