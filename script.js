@@ -47,7 +47,23 @@ function analizarCultivo() {
 
     mostrarGrafico(requisitos);
 }
-
+function actualizarGrafico(data) {
+    const ctx = document.getElementById('graficoCondiciones').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Luminosidad (h)', 'Humedad (%)', 'Temperatura (°C)'],
+            datasets: [
+                {
+                    label: 'Condiciones actuales',
+                    data: [data.luz / 1000, data.hum, data.temp],
+                    backgroundColor: 'rgba(255, 99, 132, 0.8)'
+                }
+            ]
+        },
+        options: { responsive: true }
+    });
+}
 function mostrarGrafico(requisitos) {
     const container = document.getElementById('graficoContainer');
 
@@ -86,7 +102,7 @@ function mostrarGrafico(requisitos) {
                 },
                 {
                     label: 'Condiciones actuales',
-                    data: [9, 650, 62], // Simulación de datos actuales
+                    data: [data.luz / 1000, data.hum, data.temp],
                     backgroundColor: 'rgba(255, 99, 132, 0.8)',
                     borderColor: 'rgba(255, 99, 132, 1)',
                     borderWidth: 1
@@ -124,6 +140,12 @@ function mostrarGrafico(requisitos) {
             }
         }
     });
+}
+function evaluarCondiciones(data) {
+    let mensaje = "Las condiciones son óptimas.";
+    if (data.hum < 40) mensaje = "Falta agua, riega el cultivo.";
+    else if (data.temp > 30) mensaje = "Hace demasiado calor.";
+    document.getElementById("monitoreoResultados").innerText = mensaje;
 }
 
 function monitorearCultivo() {
