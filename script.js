@@ -1,8 +1,3 @@
-function convertirLxAHoras(lx) {
-    const segundosEnUnaHora = 3600;
-    return lx / segundosEnUnaHora;
-}
-
 function obtenerDatos() {
     fetch("http://192.168.0.33/data")  // ⚠ Reemplaza con la IP correcta del ESP32
         .then(response => response.json())
@@ -11,14 +6,25 @@ function obtenerDatos() {
             console.log("Humedad:", data.humedad);
             console.log("Luz:", data.luz);
 
-            const horasLuz = convertirLxAHoras(data.luz);
+            // Convertir lux a un nivel cualitativo en lugar de horas
+            const nivelLuz = convertirLuxANivel(data.luz);
+
+            // Actualizar los valores en la interfaz
             document.getElementById("temperatura").textContent = `Temperatura: ${data.temperatura}°C`;
             document.getElementById("humedad").textContent = `Humedad: ${data.humedad}%`;
-            document.getElementById("luz").textContent = `Luz: ${horasLuz.toFixed(2)} horas`;
+            document.getElementById("luz").textContent = `Luz: ${nivelLuz}`;
 
-            analizarCultivo(data.temperatura, data.humedad, horasLuz);
+            // Analizar condiciones con datos reales
+            analizarCultivo(data.temperatura, data.humedad, nivelLuz);
         })
-        .catch(error => console.log("Error:", error));
+        .catch(error => console.log("Error al obtener datos:", error));
+}
+
+// Conversión de lux a un nivel cualitativo de luz
+function convertirLuxANivel(lx) {
+    if (lx < 500) return "Baja";
+    if (lx < 2500) return "Media";
+    return "Alta";
 }
 
 const requisitosCultivos = {
@@ -72,8 +78,6 @@ function mostrarGrafico(requisitos, temp, hum, luz) {
 
     const nuevoCanvas = document.createElement('canvas');
     nuevoCanvas.id = 'graficoCondiciones';
-    nuevoCanvas.width = 500; 
-    nuevoCanvas.height = 300; 
     container.appendChild(nuevoCanvas);
 
     const ctx = nuevoCanvas.getContext('2d');
@@ -90,9 +94,9 @@ function mostrarGrafico(requisitos, temp, hum, luz) {
                 {
                     label: 'Requisitos óptimos',
                     data: [
-                        parseFloat(requisitos.luminosidad.split('-')[0]),
-                        parseFloat(requisitos.humedad.split('-')[0]),
-                        parseFloat(requisitos.temperatura.split('-')[0])
+                        (parseFloat(requisitos.luminosidad.split('-')[0]) + parseFloat(requisitos.luminosidad.split('-')[1])) / 2,
+                        (parseFloat(requisitos.humedad.split('-')[0]) + parseFloat(requisitos.humedad.split('-')[1])) / 2,
+                        (parseFloat(requisitos.temperatura.split('-')[0]) + parseFloat(requisitos.temperatura.split('-')[1])) / 2
                     ],
                     backgroundColor: 'rgba(76, 175, 80, 0.8)',
                     borderColor: 'rgba(76, 175, 80, 1)',
@@ -122,29 +126,13 @@ function mostrarGrafico(requisitos, temp, hum, luz) {
                 }
             },
             scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        color: "#000",
-                        font: { size: 14 }
-                    }
-                },
-                x: {
-                    ticks: {
-                        color: "#000",
-                        font: { size: 14 }
-                    }
-                }
+                y: { beginAtZero: true },
+                x: {}
             }
         }
     });
 }
 
-function monitorearCultivo() {
-    document.getElementById("monitoreoResultados").innerHTML = "<p>Monitoreo en proceso...</p>";
-}
-
-// Ejecutar al cargar
 document.addEventListener("DOMContentLoaded", () => {
     obtenerDatos();
 });
