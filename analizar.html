@@ -65,7 +65,7 @@
     </footer>
 
     <script>
-        var socket = new WebSocket("ws://192.168.1.100:81/"); // ⚠️ CAMBIA esta IP por la del ESP32
+        var socket = new WebSocket("ws://192.168.0.33:81/"); // ⚠️ CAMBIA esta IP por la del ESP32
 
         socket.onopen = function() {
             console.log("Conectado al WebSocket del ESP32");
