@@ -1,4 +1,4 @@
-const socket = new WebSocket('ws://192.168.0.33:81');
+let socket = new WebSocket('ws://192.168.0.33:81');
 socket.onopen = () => {
 };
 socket.onclose = () => {
