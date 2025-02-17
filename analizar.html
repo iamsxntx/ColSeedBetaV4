@@ -47,7 +47,13 @@
             </div>
             <button class="btn btn-success" onclick="analizarCultivo()">Analizar</button>
 
-            <div id="resultados" class="mt-4"></div>
+            <div id="resultados" class="mt-4">
+                <h3>📊 Datos en tiempo real</h3>
+                <p>🌡 <b>Temperatura:</b> <span id="temp">--</span> °C</p>
+                <p>💧 <b>Humedad:</b> <span id="hum">--</span> %</p>
+                <p>☀ <b>Luz:</b> <span id="luz">--</span> lux</p>
+            </div>
+
             <div id="graficoContainer" class="mt-4">
                 <canvas id="graficoCondiciones"></canvas>
             </div>
@@ -57,7 +63,62 @@
     <footer class="bg-success text-white text-center py-3">
         <p>&copy; 2025 Colseed by David Leon - Julian Marin</p>
     </footer>
-    <script src="script.js"></script>
+
+    <script>
+        var socket = new WebSocket("ws://192.168.1.100:81/"); // ⚠️ CAMBIA esta IP por la del ESP32
+
+        socket.onopen = function() {
+            console.log("Conectado al WebSocket del ESP32");
+        };
+
+        socket.onmessage = function(event) {
+            let data = JSON.parse(event.data);
+            console.log("Datos recibidos:", data);
+
+            // Actualiza los valores en pantalla
+            document.getElementById("temp").innerText = data.temperatura;
+            document.getElementById("hum").innerText = data.humedad;
+            document.getElementById("luz").innerText = data.luz;
+
+            actualizarGrafico(data.temperatura, data.humedad, data.luz);
+        };
+
+        function analizarCultivo() {
+            let cultivo = document.getElementById("cultivo").value;
+            alert("Analizando condiciones para: " + cultivo);
+        }
+
+        // Inicializar gráfico
+        var ctx = document.getElementById("graficoCondiciones").getContext("2d");
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [
+                    { label: 'Temperatura (°C)', borderColor: 'red', data: [], fill: false },
+                    { label: 'Humedad (%)', borderColor: 'blue', data: [], fill: false },
+                    { label: 'Luz (lux)', borderColor: 'yellow', data: [], fill: false }
+                ]
+            },
+            options: { responsive: true }
+        });
+
+        function actualizarGrafico(temp, hum, luz) {
+            let now = new Date().toLocaleTimeString();
+            myChart.data.labels.push(now);
+            myChart.data.datasets[0].data.push(temp);
+            myChart.data.datasets[1].data.push(hum);
+            myChart.data.datasets[2].data.push(luz);
+
+            // Limita a los últimos 10 datos para evitar que se sature el gráfico
+            if (myChart.data.labels.length > 10) {
+                myChart.data.labels.shift();
+                myChart.data.datasets.forEach(dataset => dataset.data.shift());
+            }
+
+            myChart.update();
+        }
+    </script>
 
 </body>
 
