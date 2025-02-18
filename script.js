@@ -8,11 +8,14 @@ socket.onmessage = (event) => {
 };
 socket.onerror = (event) => {
 };
+
+let temperatura_sensor, humedad_sensor, luz_sensor;}
+
 function handleData(data) {
   const jsonData = JSON.parse(data);
-  const temperatura = jsonData.temperatura;
-  const humedad = jsonData.humedad;
-  const luz = jsonData.luz;
+  const temperatura_sensor = jsonData.temperatura;
+  const humedad_sensor = jsonData.humedad;
+  const luz_sensor = jsonData.luz;
 }
 
 const requisitosCultivos = {
@@ -89,7 +92,7 @@ function mostrarGrafico(requisitos) {
                 },
                 {
                     label: 'Condiciones actuales',
-                    data: [luz, humedad, temperatura], 
+                    data: [luz_sensor, humedad_sensor, temperatura_sensor], 
                     backgroundColor: 'rgba(255, 99, 132, 0.8)',
                     borderColor: 'rgba(255, 99, 132, 1)',
                     borderWidth: 1
@@ -130,9 +133,9 @@ function mostrarGrafico(requisitos) {
 }
 
 function monitorearCultivo() {
-  const temp = temperatura;
-  const hum = humedad;
-  const luz = luz;
+  const temp = temperatura_sensor;
+  const hum = humedad_sensor;
+  const luz = luz_sensor;
   const respuesta = construir_respuesta_html(temp, hum, luz);
   document.getElementById("monitoreoResultados").innerHTML = respuesta;
 }
