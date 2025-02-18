@@ -13,9 +13,9 @@ let temperatura_sensor, humedad_sensor, luz_sensor;}
 
 function handleData(data) {
   const jsonData = JSON.parse(data);
-  const temperatura_sensor = jsonData.temperatura;
-  const humedad_sensor = jsonData.humedad;
-  const luz_sensor = jsonData.luz;
+  temperatura_sensor = jsonData.temperatura;
+  humedad_sensor = jsonData.humedad;
+  luz_sensor = jsonData.luz;
 }
 
 const requisitosCultivos = {
