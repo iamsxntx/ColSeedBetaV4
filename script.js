@@ -1,20 +1,3 @@
-var socket = io("https://iafa-h9tv.onrender.com/");
-
-// Variables globales para los valores de los sensores
-let datosActuales = { temperatura: 0, humedad: 0, luz: 0 };
-
-socket.on("actualizar_datos", function(datos) {
-    // Guardamos los datos de los sensores
-    datosActuales.temperatura = datos.temperatura;
-    datosActuales.humedad = datos.humedad;
-    datosActuales.luz = datos.luz;
-
-    // Mostramos los datos en la web
-    document.getElementById("temp").innerText = datos.temperatura;
-    document.getElementById("humedad").innerText = datos.humedad;
-    document.getElementById("luz").innerText = datos.luz;
-});
-
 const requisitosCultivos = {
     mora: { luminosidad: "6-8 horas", humedad: "60-70%", temperatura: "15-25°C" },
     lulo: { luminosidad: "8-10 horas", humedad: "70-80%", temperatura: "15-20°C" },
@@ -61,6 +44,8 @@ function mostrarGrafico(requisitos) {
 
     const nuevoCanvas = document.createElement('canvas');
     nuevoCanvas.id = 'graficoCondiciones';
+    nuevoCanvas.width = 500; 
+    nuevoCanvas.height = 300; 
     container.appendChild(nuevoCanvas);
 
     const ctx = nuevoCanvas.getContext('2d');
@@ -69,14 +54,6 @@ function mostrarGrafico(requisitos) {
         chart.destroy();
     }
 
-    // Convertir luminosidad de "X-Y horas" a un número
-    const luminosidadOptima = parseFloat(requisitos.luminosidad.split('-')[0]);
-    const humedadOptima = parseFloat(requisitos.humedad.split('-')[0]);
-    const temperaturaOptima = parseFloat(requisitos.temperatura.split('-')[0]);
-
-    // Conversión de lux a horas aproximadas de luz
-    let horasLuz = datosActuales.luz / 100; 
-
     chart = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -84,14 +61,18 @@ function mostrarGrafico(requisitos) {
             datasets: [
                 {
                     label: 'Requisitos óptimos',
-                    data: [luminosidadOptima, humedadOptima, temperaturaOptima],
+                    data: [
+                        parseFloat(requisitos.luminosidad.split('-')[0]),
+                        parseFloat(requisitos.humedad.split('-')[0]),
+                        parseFloat(requisitos.temperatura.split('-')[0])
+                    ],
                     backgroundColor: 'rgba(76, 175, 80, 0.8)',
                     borderColor: 'rgba(76, 175, 80, 1)',
                     borderWidth: 1
                 },
                 {
                     label: 'Condiciones actuales',
-                    data: [horasLuz, datosActuales.humedad, datosActuales.temperatura], 
+                    data: [9, 650, 62,], // Simulación de datos actuales
                     backgroundColor: 'rgba(255, 99, 132, 0.8)',
                     borderColor: 'rgba(255, 99, 132, 1)',
                     borderWidth: 1
@@ -102,11 +83,35 @@ function mostrarGrafico(requisitos) {
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-                legend: { position: 'top' }
+                legend: { position: 'top' },
+                tooltip: {
+                    enabled: true,
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return ${tooltipItem.dataset.label}: ${tooltipItem.raw};
+                        }
+                    }
+                }
             },
             scales: {
-                y: { beginAtZero: true }
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: "#000",
+                        font: { size: 14 }
+                    }
+                },
+                x: {
+                    ticks: {
+                        color: "#000",
+                        font: { size: 14 }
+                    }
+                }
             }
         }
     });
+}
+
+function monitorearCultivo() {
+    document.getElementById("monitoreoResultados").innerHTML = "<p>Monitoreo en proceso...</p>";
 }
