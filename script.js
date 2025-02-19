@@ -63,7 +63,6 @@ function mostrarGrafico(requisitos) {
                     label: 'Requisitos óptimos',
                     data: [
                         parseFloat(requisitos.luminosidad.split('-')[0]),
-                        parseFloat(requisitos.precipitacion.split('-')[0]),
                         parseFloat(requisitos.humedad.split('-')[0]),
                         parseFloat(requisitos.temperatura.split('-')[0])
                     ],
