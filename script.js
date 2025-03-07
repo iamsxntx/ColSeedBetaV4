@@ -1,4 +1,5 @@
-const requisitosCultivos = {
+
+    const requisitosCultivos = {
     mora: { luminosidad: "6-8 horas", humedad: "60-70%", temperatura: "15-25°C" },
     lulo: { luminosidad: "8-10 horas", humedad: "70-80%", temperatura: "15-20°C" },
     frijol: { luminosidad: "6-8 horas", humedad: "50-60%", temperatura: "20-30°C" },
@@ -72,7 +73,7 @@ function mostrarGrafico(requisitos) {
                 },
                 {
                     label: 'Condiciones actuales',
-                    data: [9, 650, 62,], // Simulación de datos actuales
+                    data: [2, 50, 24], // Datos quemados actualizados
                     backgroundColor: 'rgba(255, 99, 132, 0.8)',
                     borderColor: 'rgba(255, 99, 132, 1)',
                     borderWidth: 1
@@ -88,7 +89,7 @@ function mostrarGrafico(requisitos) {
                     enabled: true,
                     callbacks: {
                         label: function(tooltipItem) {
-                            return ${tooltipItem.dataset.label}: ${tooltipItem.raw};
+                            return tooltipItem.dataset.label + ': ' + tooltipItem.raw;
                         }
                     }
                 }
